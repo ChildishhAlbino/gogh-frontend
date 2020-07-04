@@ -8,9 +8,34 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
+import { gogh } from "gogh-gradient"
 import Header from "./header"
 import "./layout.css"
+
+
+const Context = React.createContext();
+
+class ContextProvider extends React.Component {
+  state = {
+    startColour: "#ff00ff",
+    endColour: "#00ffff",
+    handleStartPickerChange: (color) => {
+      this.setState({ startColour: color.hex });
+    },
+    handleStartPickerChangeComplete: (color) => {
+      this.setState({ startColour: color.hex });
+    },
+    handleEndPickerChange: (color) => {
+      this.setState({ endColour: color.hex });
+    },
+    handleEndPickerChangeComplete: (color) => {
+      this.setState({ endColour: color.hex });
+    }
+  };
+  render() {
+    return <Context.Provider value={{ state: this.state }}>{this.props.children}</Context.Provider>;
+  }
+}
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -22,9 +47,10 @@ const Layout = ({ children }) => {
       }
     }
   `)
-
+  const gradient = gogh("#FF00FF", "#00FFFF", 10)
+  console.log(gradient)
   return (
-    <>
+    <ContextProvider>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
@@ -40,7 +66,7 @@ const Layout = ({ children }) => {
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    </>
+    </ContextProvider>
   )
 }
 
@@ -49,3 +75,4 @@ Layout.propTypes = {
 }
 
 export default Layout
+export { Context }
