@@ -10,26 +10,37 @@ class ButtonExample extends React.Component {
                 {(context) => {
                     return (
                         <div className="colourPickerContainer">
-                            <ChromePicker
-                                color={context.state.startColour || "#FF00FF"}
-                                onChange={(color) => {
-                                    context.state.handleStartPickerChange(color)
-                                }}
-                                onChangeComplete={(color) => {
-                                    context.state.handleStartPickerChangeComplete(color)
-                                }}
-                                disableAlpha={true}
-                            />
-                            <ChromePicker
-                                color={context.state.endColour || "#00FFFF"}
-                                onChange={(color) => {
-                                    context.state.handleEndPickerChange(color)
-                                }}
-                                onChangeComplete={(color) => {
-                                    context.state.handleEndPickerChangeComplete(color)
-                                }}
-                                disableAlpha={true}
-                            />
+                            <div>
+                                <ChromePicker
+                                    color={context.state.startColour || "#FF00FF"}
+                                    onChange={(color) => {
+                                        context.state.handleStartPickerChange(color)
+                                    }}
+                                    onChangeComplete={(color) => {
+                                        context.state.handleStartPickerChangeComplete(color)
+                                    }}
+                                    disableAlpha={true}
+                                    className="colour-picker"
+                                />
+                            </div>
+                            <div>
+                                <ChromePicker
+                                    color={context.state.endColour || "#00FFFF"}
+                                    onChange={(color) => {
+                                        context.state.handleEndPickerChange(color)
+                                    }}
+                                    onChangeComplete={(color) => {
+                                        context.state.handleEndPickerChangeComplete(color)
+                                    }}
+                                    disableAlpha={true}
+                                    className="colour-picker"
+                                />
+                            </div>
+                            <input type="number" defaultValue={context.state.chunks} id="chunksInput"></input>
+                            <input type="button" value="GO!" onClick={() => {
+                                window.scrollTo(0, 0);
+                                context.state.submit()
+                            }}></input>
                         </div>
                     );
                 }

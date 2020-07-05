@@ -6,10 +6,12 @@
  */
 
 import React from "react"
-import PropTypes from "prop-types"
+import PropTypes, { node } from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { gogh } from "gogh-gradient"
 import Header from "../header/header"
+import Sidebar from '../sidebar/sidebar'
+
 import "./layout.scss"
 
 
@@ -19,6 +21,8 @@ class ContextProvider extends React.Component {
   state = {
     startColour: "#ff00ff",
     endColour: "#00ffff",
+    chunks: 10,
+    goghRes: null,
     handleStartPickerChange: (color) => {
       this.setState({ startColour: color.hex });
     },
@@ -30,6 +34,12 @@ class ContextProvider extends React.Component {
     },
     handleEndPickerChangeComplete: (color) => {
       this.setState({ endColour: color.hex });
+    },
+    submit: () => {
+      let chunksInput = document.getElementById("chunksInput")
+      const chunks = chunksInput.value || this.state.chunks
+      const goghRes = gogh(this.state.startColour, this.state.endColour, chunks)
+      this.setState({ chunks, goghRes })
     }
   };
   render() {
@@ -47,26 +57,21 @@ const Layout = ({ children }) => {
       }
     }
   `)
-  const gradient = gogh("#FF00FF", "#00FFFF", 10)
-  console.log(gradient)
   return (
     <ContextProvider>
       <Context.Consumer>
         {(context) => {
-          return <div style={{
-            background: `linear-gradient(to right, ${context.state.startColour}, ${context.state.endColour})`,
-      }}>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <main className="page-wrapper" gradient = {gradient}>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
+          return (
+            <div className="content-wrapper">
+              <div className="content-container">
+                <Sidebar siteTitle={data.site.siteMetadata.title}></Sidebar>
+                <main className="page-wrapper">{children}</main>
+              </div>
+            </div>
+          )
         }}
       </Context.Consumer>
-    </ContextProvider>
+    </ContextProvider >
   )
 }
 

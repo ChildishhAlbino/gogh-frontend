@@ -1,0 +1,16 @@
+.sidebar-container {
+  display: grid;
+  grid-template-rows: 0.5fr 4fr 0.5fr;
+  height: 100%;
+  width: 100%;
+  max-height: 100vh;
+  row-gap: 1em;
+}
+
+.sidebar-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+}
