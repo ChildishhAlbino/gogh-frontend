@@ -1,19 +1,15 @@
 import React from 'react'
 import { ChromePicker } from 'react-color'
-import { Context } from './layout'
-
+import { Context } from '../layout/layout'
+import './colour-picker.scss'
 
 class ButtonExample extends React.Component {
-    state = {
-        startColour: "#00FFFF",
-        endColour: "#FF00FF"
-    };
     render() {
         return (
             <Context.Consumer>
                 {(context) => {
                     return (
-                        <div>
+                        <div className="colourPickerContainer">
                             <ChromePicker
                                 color={context.state.startColour || "#FF00FF"}
                                 onChange={(color) => {

@@ -1,9 +1,9 @@
 import React from "react"
-import ColourPicker from "../components/colour-picker"
-import Layout from "../components/layout"
+import ColourPicker from "../components/colour-picker/colour-picker"
+import Layout from "../components/layout/layout"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
+const IndexPage = (gradient) => (
   <Layout>
     <SEO title="Home" />
     <ColourPicker />

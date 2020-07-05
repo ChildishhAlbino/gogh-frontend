@@ -9,8 +9,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { gogh } from "gogh-gradient"
-import Header from "./header"
-import "./layout.css"
+import Header from "../header/header"
+import "./layout.scss"
 
 
 const Context = React.createContext();
@@ -51,21 +51,21 @@ const Layout = ({ children }) => {
   console.log(gradient)
   return (
     <ContextProvider>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
+      <Context.Consumer>
+        {(context) => {
+          return <div style={{
+            background: `linear-gradient(to right, ${context.state.startColour}, ${context.state.endColour})`,
+      }}>
+        <Header siteTitle={data.site.siteMetadata.title} />
+        <main className="page-wrapper" gradient = {gradient}>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
+        }}
+      </Context.Consumer>
     </ContextProvider>
   )
 }

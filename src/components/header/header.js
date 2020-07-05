@@ -1,7 +1,9 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import { Context } from "./layout"
+import { Context } from "../layout/layout"
+
+import './header.scss'
 
 const Header = ({ siteTitle }) => (
   <Context.Consumer>
@@ -9,7 +11,6 @@ const Header = ({ siteTitle }) => (
       return (
         <header
           style={{
-            background: `linear-gradient(to right, ${context.state.startColour}, ${context.state.endColour})`,
             marginBottom: `1.45rem`,
           }}
         >
@@ -24,7 +25,6 @@ const Header = ({ siteTitle }) => (
               <Link
                 to="/"
                 style={{
-                  color: `white`,
                   textDecoration: `none`,
                 }}
               >
